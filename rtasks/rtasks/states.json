@@ -1,0 +1,13 @@
+["Backlog", "Ready",
+ {
+     "title": "Development",
+     "substates": [
+         {"title": "Ready"},
+         {"title": "Doing", "working": true},
+         {"title": "Needs review"},
+         {"title": "Review", "working": true},
+         {"title": "Done", "complete": true}
+     ]
+ },
+  "Acceptance", "Deploying", "Deployed"
+]

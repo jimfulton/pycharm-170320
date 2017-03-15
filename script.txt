@@ -1,0 +1,124 @@
+- Today, we're going to look at managing data in Python
+
+  - particularly why you might want to use a document database
+
+    - Why (or not) Postgres.
+
+  - Before jumping into code, I'd like to review some high-level
+    concepts, to set the stage.:
+
+- Intro slides
+
+  - slide: Why you might use a document database
+  - slide: ACID, with special emphasis on "A".
+  - slide: quote
+  - slide: scalability
+  - slide: 80/20
+  - slide: special case, when you only need "D".
+
+           Note some databases famous for not even getting "D" right.
+           (But it's harder than it looks.)
+
+  - Demo
+
+- Quick Kanban demo
+
+- Dive into rtasks
+
+  - Open rtasks project
+
+  - Show model
+
+    - Quirks: ORM bargain with devil :)
+
+      - id handling
+
+      - magic id handling doesn't work with new objects
+
+      - need id before commit in most cases
+
+      - Weird state backref
+
+    - Note json_reduce
+
+  - Show app.py
+
+    - transaction automation.
+
+      Mention alternatives like:
+
+      - Middleware: repoze.retry
+
+      - Pyramid tween: pyramid_tm
+
+    - None encoder
+
+    - Call the setup_db method.
+
+    - Show a DB diagram
+
+  - Add a site
+
+  - Look at API.
+
+    Look ma, no commits
+
+    Important point: regular application logic should avoid commits.
+
+    Commits should be automated by high-level control.
+
+    Minor cheap paranoia: query all and assign to lest rather than
+    querying first.
+
+  - Add a user using rest client
+
+    - Review method:
+
+      - ``get_json``
+
+      - ``g.session.add``
+
+    - It fails
+
+    - Look ma, no data. Thanks transactions!
+
+    - Fix API, restart and try again
+
+    - Show: we have a user
+
+  - Add a board via the rest client
+
+    - Review API implementation
+
+    - Make request, note id in response
+
+    - Load the board: GET /boards/<id>
+
+      Note paranoia: include redundant site id in search.
+
+      Note all the states in the response. See them in database.
+
+  - Add a task to the backlog:
+
+    - Review api method.
+
+    - Note redundant ids in state search.
+
+    - Note handling of assigned id
+
+      - Sending email
+
+        - Needs to be transactional.
+
+        - Danger of transaction impostors!
+
+        - Show use of ``pq``.
+
+    - Make request
+
+    - See that there's a task
+
+    - See queue
+
+    - requests boards/1
+
