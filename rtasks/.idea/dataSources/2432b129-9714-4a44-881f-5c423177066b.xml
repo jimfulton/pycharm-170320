@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="rkanban@localhost">
+  <database-model serializer="dbm" rdbms="POSTGRES" format-version="4.0">
+    <root id="1"/>
+    <database id="2" parent="1" name="rkanban">
+      <ObjectId>10519958</ObjectId>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </database>
+    <schema id="3" parent="2" name="public">
+      <ObjectId>2200</ObjectId>
+      <IntrospectionTimestamp>2017-03-13.10:34:31.917</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1839497</IntrospectionStateNumber>
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="4" parent="2" name="pg_catalog">
+      <ObjectId>11</ObjectId>
+    </schema>
+    <schema id="5" parent="2" name="pg_toast">
+      <ObjectId>99</ObjectId>
+    </schema>
+    <schema id="6" parent="2" name="pg_temp_1">
+      <ObjectId>11816</ObjectId>
+    </schema>
+    <schema id="7" parent="2" name="pg_toast_temp_1">
+      <ObjectId>11817</ObjectId>
+    </schema>
+    <schema id="8" parent="2" name="information_schema">
+      <ObjectId>12349</ObjectId>
+    </schema>
+    <table id="9" parent="3" name="board">
+      <ObjectId>10519985</ObjectId>
+      <StateNumber>1839496</StateNumber>
+    </table>
+    <table id="10" parent="3" name="site">
+      <ObjectId>10519959</ObjectId>
+      <StateNumber>1839497</StateNumber>
+    </table>
+    <table id="11" parent="3" name="state">
+      <ObjectId>10519998</ObjectId>
+      <StateNumber>1839497</StateNumber>
+    </table>
+    <table id="12" parent="3" name="user">
+      <ObjectId>10519964</ObjectId>
+      <StateNumber>1839493</StateNumber>
+    </table>
+    <column id="13" parent="9" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839496</StateNumber>
+    </column>
+    <column id="14" parent="9" name="name">
+      <Position>2</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>1839496</StateNumber>
+    </column>
+    <column id="15" parent="9" name="title">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>1839496</StateNumber>
+    </column>
+    <column id="16" parent="9" name="description">
+      <Position>4</Position>
+      <DataType>text|0</DataType>
+      <StateNumber>1839496</StateNumber>
+    </column>
+    <column id="17" parent="9" name="site_id">
+      <Position>5</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>1839496</StateNumber>
+    </column>
+    <index id="18" parent="9" name="board_pkey">
+      <ObjectId>10519991</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="19" parent="9" name="board_pkey">
+      <ObjectId>10519992</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>board_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="20" parent="9" name="board_site_id_fkey">
+      <ObjectId>10519993</ObjectId>
+      <ColNames>site_id</ColNames>
+      <RefTableName>site</RefTableName>
+      <RefKeyName>site_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="21" parent="10" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839492</StateNumber>
+    </column>
+    <index id="22" parent="10" name="site_pkey">
+      <ObjectId>10519962</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="23" parent="10" name="site_pkey">
+      <ObjectId>10519963</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>site_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <column id="24" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839497</StateNumber>
+    </column>
+    <column id="25" parent="11" name="order_">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839497</StateNumber>
+    </column>
+    <column id="26" parent="11" name="label_">
+      <Position>3</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839497</StateNumber>
+    </column>
+    <column id="27" parent="11" name="working">
+      <Position>4</Position>
+      <DataType>boolean|0</DataType>
+      <StateNumber>1839497</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+    </column>
+    <column id="28" parent="11" name="complete">
+      <Position>5</Position>
+      <DataType>boolean|0</DataType>
+      <StateNumber>1839497</StateNumber>
+      <DefaultExpression>false</DefaultExpression>
+    </column>
+    <column id="29" parent="11" name="parent">
+      <Position>6</Position>
+      <DataType>integer|0</DataType>
+      <StateNumber>1839497</StateNumber>
+    </column>
+    <column id="30" parent="11" name="site_id">
+      <Position>7</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839497</StateNumber>
+    </column>
+    <index id="31" parent="11" name="state_pkey">
+      <ObjectId>10520006</ObjectId>
+      <ColNames>id</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="32" parent="11" name="state_pkey">
+      <ObjectId>10520007</ObjectId>
+      <ColNames>id</ColNames>
+      <UnderlyingIndexName>state_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="33" parent="11" name="state_parent_fkey">
+      <ObjectId>10520008</ObjectId>
+      <ColNames>parent</ColNames>
+      <RefTableName>state</RefTableName>
+      <RefKeyName>state_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <foreign-key id="34" parent="11" name="state_site_id_fkey">
+      <ObjectId>10520013</ObjectId>
+      <ColNames>site_id</ColNames>
+      <RefTableName>site</RefTableName>
+      <RefKeyName>site_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="35" parent="12" name="email">
+      <Position>1</Position>
+      <DataType>text|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839493</StateNumber>
+    </column>
+    <column id="36" parent="12" name="site_id">
+      <Position>2</Position>
+      <DataType>integer|0</DataType>
+      <NotNull>1</NotNull>
+      <StateNumber>1839493</StateNumber>
+    </column>
+    <index id="37" parent="12" name="user_pkey">
+      <ObjectId>10519970</ObjectId>
+      <ColNames>site_id
+email</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="38" parent="12" name="user_pkey">
+      <ObjectId>10519971</ObjectId>
+      <ColNames>site_id
+email</ColNames>
+      <UnderlyingIndexName>user_pkey</UnderlyingIndexName>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="39" parent="12" name="user_site_id_fkey">
+      <ObjectId>10519972</ObjectId>
+      <ColNames>site_id</ColNames>
+      <RefTableName>site</RefTableName>
+      <RefKeyName>site_pkey</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>
