@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Buildout Eggs" type="python">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/pq-1.4-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/psycopg2-2.7.1-py3.5-macosx-10.10-x86_64.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/SQLAlchemy-1.1.6-py3.5-macosx-10.10-x86_64.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/Flask-0.12-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/click-6.7-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/itsdangerous-0.24-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/Jinja2-2.9.5-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/Werkzeug-0.12.1-py3.5.egg" />
+      <root url="file://$USER_HOME$/.buildout/eggs/cp35m/MarkupSafe-1.0-py3.5-macosx-10.10-x86_64.egg" />
+    </CLASSES>
+    <SOURCES />
+  </library>
+</component>
