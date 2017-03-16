@@ -40,7 +40,7 @@ def get_board(id):
                  .all())
     return jsonify(dict(data=board.load()))
 
-@app.route('/boards/<int:board_id>/state/<int:id>/tasks', methods=['POST'])
+@app.route('/boards/<int:board_id>/states/<int:id>/tasks', methods=['POST'])
 def add_task(board_id, id):
     site = get_site()
     [state] = (
