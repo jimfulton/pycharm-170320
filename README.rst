@@ -80,6 +80,12 @@ PyCharm
 PostgreSQL
   https://www.postgresql.org/
 
+  PostgreSQL JSON types
+    https://www.postgresql.org/docs/current/static/datatype-json.html
+
+  PostgreSQL JSON functions and operators
+    https://www.postgresql.org/docs/current/static/functions-json.html
+
 Python
   https://www.python.org/
 
