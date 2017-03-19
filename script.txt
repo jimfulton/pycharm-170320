@@ -1,6 +1,6 @@
 - Today, we're going to look at managing data in Python
 
-  - particularly why you might want to use a document database
+  - Particularly why you might want to use a document database
 
     - Why (or not) Postgres.
 
@@ -11,6 +11,13 @@
 
   - slide: Why you might use a document database
   - slide: ACID, with special emphasis on "A".
+
+           Riff a little bit on atomicity.
+
+           C/I
+
+           D
+
   - slide: quote
   - slide: scalability
   - slide: 80/20
@@ -47,17 +54,17 @@
 
       Mention alternatives like:
 
-      - Middleware: repoze.retry
+      - Middleware: repoze.retry, repoze.tm2
 
       - Pyramid tween: pyramid_tm
 
-    - None encoder
+    - Custom encoder
 
     - Call the setup_db method.
 
     - Show a DB diagram
 
-  - Add a site
+  - Add a site manually
 
   - Look at API.
 
@@ -67,7 +74,7 @@
 
     Commits should be automated by high-level control.
 
-    Minor cheap paranoia: query all and assign to lest rather than
+    Minor cheap paranoia: query all and assign to list rather than
     querying first.
 
   - Add a user using rest client
@@ -104,6 +111,8 @@
 
     - Note redundant ids in state search.
 
+    - Note where ORM makes things more complicated with special language.
+
     - Note handling of assigned id
 
       - Sending email
@@ -122,3 +131,182 @@
 
     - requests boards/1
 
+  - Open jtasks
+
+    - Look at models
+
+      - Board stores it's states in jsonb
+
+        This is typical hybrid appraach.
+
+      - Tasks is a pure JSONB.
+
+        Uses a quick hack in json.py, SHOW
+
+      - Everything else is unchanged.
+
+      - An advantage of PostgreSQL vs a pure document database is that
+        we were able to use a mix of relational and document both at
+        the database and table level.
+
+    - Look at API.
+
+      - No longer need a join when getting a state.
+
+      - Otherwise, everything is the same.
+
+      - The Rest API hasn't changed.
+
+    - Notes
+
+      - We used SQL Alchemy to help us manage object creation and
+        update, even when there wasn't any relational mapping
+        happening.
+
+        This also fits into the hybrid approach, which is common.
+
+      - Some alternatives:
+
+        - We could have dealt with this purely at the JSON level and
+          avoided any special classes.  We might have denormalized the
+          model a bit more.
+
+        - pjpersist provides an object-oriented API on top of jsonb,
+          mapping classes to tables (as we did here).  It shares some
+          components with Newt DB, which we'll discuss next.
+
+  - Open two-tiered Kanban
+
+    - Newt DB not SQLAlchemy
+
+      Newt DB slide
+
+    - Bobo not Flask bit similar
+
+    - This is a far more complete project, so more source files.
+
+    - Look at model.py
+
+      - Subclass Persistent
+
+      - Looks alot like the Tasks class from jtasks
+
+      - The Kanban class plays the same role as the Board class in the
+        other examples.
+
+      - Note the use of (forward) collections rather than (reverse)
+        foreign keys to model structue.
+
+      - Briefly mention generational sets.
+
+    - Briefly show how object traversal and url traversal are mirrored
+      in the api modules.
+
+      - apibase handles top-level routes. Gets site from root.
+
+      - apiadmin handles routes starting with /kb-admin
+
+      - apiboard handles routes starting with /board/:name
+
+      - Look at adding release
+
+      - Look at adding a task
+
+      Look ma, no queries
+
+    - Look at the newt table.
+
+      Show json using jsonb_pretty.
+
+  - Searching
+
+    There was a task that said it was a science project, but I don't
+    remember which one, because I can only see titles on the board.
+
+    Let's try searching for it::
+
+     select zoid, jsonb_pretty(state)
+     from newt
+     where to_tsvector(state->>'description') @@ to_tsquery('science');
+
+    That was handy, let's add a search API to out board API.  We want
+    to search by both title and description, giving titles (names
+    here) greater weight.
+
+    This becomes::
+
+     select zoid, jsonb_pretty(state)
+     from newt
+     where (setweight(to_tsvector(state ->> 'name'), 'A') ||
+            to_tsvector(state->>'description')) @@ to_tsquery('science');
+
+    This is a bit cumbersome.  We can simplify this a bit by adding a function::
+
+      create or replace function task_text(state jsonb) returns tsvector
+      as $$
+      begin
+        return setweight(to_tsvector(coalesce(state ->> 'name', '')), 'A') ||
+               to_tsvector(coalesce(state->>'description', ''));
+      end
+      $$ language plpgsql immutable;
+
+    With this function, we can search with::
+
+     select zoid, jsonb_pretty(state)
+     from newt
+     where task_text(state) @@ to_tsquery('science');
+
+    We want to optionally limit searches to a specific release.  The
+    output from out previous query had a parent id of 43.  Let's
+    search for tasks with that porent::
+
+      select zoid, jsonb_pretty(state)
+      from newt
+      where state @> '{"parent": {"id": [43]}}';
+
+    Let's add a search API::
+
+      @get("/search")
+      def search(self, text=None, parent_id=None):
+          where = "class_name == 'zc.twotieredkanban.model.Task'"
+          params = ()
+          if text is not None:
+              where += "task_text(state) @@ to_tsquery(%s)"
+              params += (text,)
+          if parent_id is not None:
+              where += "state @> '{"parent": {"id": [43]}}'"
+              params += (parent_id,)
+
+          tasks = self.connection.where(where)
+          return dict(tasks=tasks)
+
+    Try it out.
+
+    So far we haven't built any indexes.  Let's see how our searches
+    will be executed.  Let's start with the path::
+
+      explain select zoid, jsonb_pretty(state)
+      from newt
+      where state @> '{"parent": {"id": [43]}}';
+
+    This *should* use an index, as we have one.  We have so little
+    data through that the optimizer has decided not to bother with an
+    index.
+
+    Makes using explain kinda tricky.
+
+    Let's force use of an index and try again:
+
+      SET enable_seqscan = OFF;
+
+    Of course our text search won't be indexed::
+
+     explain select zoid, jsonb_pretty(state)
+     from newt
+     where task_text(state) @@ to_tsquery('science');
+
+   We can add an index:
+
+     create index on newt using gin (task_text(state));
+
+   We're indexing an expression!
