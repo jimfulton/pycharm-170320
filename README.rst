@@ -55,7 +55,7 @@ You'll be able to connect to the demonstration database using PyCharm.
 This screen shot shows the user interface for `adding a data source
 <https://www.jetbrains.com/help/pycharm/2016.3/working-with-the-database-tool-window.html#create_data_source>`_ for this demo::
 
-.. image: add-data-source.png
+.. image:: add-data-source.png
 
 You'll use ``pycharm.ch7ekuuhvcex.us-east-1.rds.amazonaws.com`` for the host.
 The password is ``charmingnewt``.
