@@ -19,11 +19,14 @@ using 3 approaches:
 - object oriented.
 
 All of the examples will use the `Python programming language
-<https://www.python.org/>`_.
-
+<https://www.python.org/>`_.  We'll be using `PyCharm
+<https://www.jetbrains.com/pycharm/>`_ to look at them.
 
 You'll be able to follow along by looking at the databases using
-database connection information that I'll share at the time of the Webinar.
+database connection information that I'll share at the time of the
+Webinar. (The `PyCharm database tool
+<https://www.jetbrains.com/help/pycharm/2016.3/database-tool-window.html>`_
+makes this especially easy.)
 
 The first two examples are in directories in this repository:
 
@@ -46,6 +49,9 @@ document-oriented database on top of Postgres.
 
 Links
 =====
+
+PyCharm
+  https://www.jetbrains.com/pycharm/
 
 PostgreSQL
   https://www.postgresql.org/
