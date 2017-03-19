@@ -12,11 +12,15 @@ pitfalls.
 As an example, we'll look at implementing a two-tiered Kanban system
 using 3 approaches:
 
-- Relational,
+- relational,
 
-- Document oriented, and
+- document oriented, and
 
-- Object oriented.
+- object oriented.
+
+All of the examples will use the `Python programming language
+<https://www.python.org/>`_.
+
 
 You'll be able to follow along by looking at the databases using
 database connection information that I'll share at the time of the Webinar.
@@ -45,6 +49,9 @@ Links
 
 PostgreSQL
   https://www.postgresql.org/
+
+Python
+  https://www.python.org/
 
 SQL Alchemy object-relational mapper
   https://www.sqlalchemy.org/
