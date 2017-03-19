@@ -86,6 +86,9 @@ PostgreSQL
   PostgreSQL JSON functions and operators
     https://www.postgresql.org/docs/current/static/functions-json.html
 
+  Full-text search
+    https://www.postgresql.org/docs/current/static/textsearch.html
+
 Python
   https://www.python.org/
 
