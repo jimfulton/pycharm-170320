@@ -1,5 +1,5 @@
-from setuptools import setup;
+from setuptools import setup
 
 setup(name='rtasks',
-      install_requires=['Flask', 'psycopg2', 'pq'],
+      install_requires=['Flask', 'SQLAlchemy', 'psycopg2', 'pq'],
       )
