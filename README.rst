@@ -71,8 +71,6 @@ jtasks
 otasks
    For the hybrid object-oriented and document oriented implementation
 
-I'll share the password shortly before the webinar.
-
 Links
 =====
 
