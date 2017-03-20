@@ -23,7 +23,7 @@ Ease of use:
 
   Easy to change your mind about what to store.
 
-  Easy to deal with structured data, like lists and dicts in your data.
+  Easy to deal with structured data, like lists and dictionaries in your data.
 
 - No joins, no ORM
 
@@ -36,27 +36,21 @@ Scalability:
 Transactions/ACID
 =================
 
-ACID:
-
 Atomicity
   If you make changes and then error, the system tolls back changes for you.
   This is HUGE
 
 Consistency
-  The database provides a consistent view of the database, which is a
-  view of the database that would be produced by application logic
-  operating on it sequentially.
+  The database provides a consistent view of the database.
 
 Isolation
-  Concurrent database activity is managed by the database system.  No
-  locks, queues, etc, (but transaction errors and retries -- there's
-  no free lunch)
+  Concurrent database activity is managed by the database system.
 
 Durable
-  Changes made to the database persist reliabily
+  Changes made to the database persist reliably
 
-Tranactions/ACID shouldn't be traded away lightly
-=================================================
+Transactions/ACID shouldn't be traded away lightly
+=======================================================
 
 A quote from the O'Reilly Mongo DB book:
 
@@ -77,9 +71,11 @@ Transactional databases generally have to be scaled vertically
 
 - Limited
 
-- But limits are high: 10s of thousanda of transactions per second.
+- But limits are high: 10s of thousands of transactions per second.
 
 - Ongoing improvements, Postgres-XL, Oracle RAC
+
+- Asynchrony
 
 - Sharding
 
@@ -125,7 +121,7 @@ Postgres JSONB
 
   - No custom types
 
-- Less forgiving than Python json
+- Less forgiving than Python JSON
 
   - No nulls
 
