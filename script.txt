@@ -229,7 +229,7 @@
      from newt
      where to_tsvector(state->>'description') @@ to_tsquery('science');
 
-    That was handy, let's add a search API to out board API.  We want
+    That was handy, let's add a search API to our board API.  We want
     to search by both title and description, giving titles (names
     here) greater weight.
 
@@ -245,8 +245,9 @@
       create or replace function task_text(state jsonb) returns tsvector
       as $$
       begin
-        return setweight(to_tsvector(coalesce(state ->> 'name', '')), 'A') ||
-               to_tsvector(coalesce(state->>'description', ''));
+        return setweight(
+                 to_tsvector('english', coalesce(state ->> 'name', '')), 'A') ||
+               to_tsvector('english', coalesce(state->>'description', ''));
       end
       $$ language plpgsql immutable;
 
@@ -266,19 +267,19 @@
 
     Let's add a search API::
 
-      @get("/search")
+      @bobo.get("/search", content_type='application/json')
       def search(self, text=None, parent_id=None):
-          where = "class_name == 'zc.twotieredkanban.model.Task'"
+          where = "class_name='zc.twotieredkanban.model.Task'"
           params = ()
           if text is not None:
-              where += "task_text(state) @@ to_tsquery(%s)"
-              params += (text,)
+              where += "and task_text(state) @@ to_tsquery(%s)"
+              params += (text, )
           if parent_id is not None:
-              where += "state @> '{"parent": {"id": [43]}}'"
-              params += (parent_id,)
+              where += """and state @> '{"parent": {"id": [%s]}}'"""
+              params += parent_id
 
-          tasks = self.connection.where(where)
-          return dict(tasks=tasks)
+          tasks = self.connection.where(where, params)
+          return dict(tasks=[task.json_reduce() for task in tasks])
 
     Try it out.
 
