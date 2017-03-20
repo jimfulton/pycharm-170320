@@ -8,7 +8,7 @@ Why you might use a document database
 
 Ease of use:
 
-- Dynamic schema
+- Dynamic schema (sometimes confused with schemaless)
 
   Easy to change your mind about what to store.
 
@@ -68,7 +68,7 @@ Transactional databases generally have to be scaled vertically
 
 - But limits are high: 10s of thousanda of transactions per second.
 
-- Ongoing improvements
+- Ongoing improvements, Postgres-XL, Oracle RAC
 
 - Sharding
 
@@ -92,7 +92,7 @@ Special case: Data collection
 
 - Collecting raw data
 
-Only need durability.
+Only need durability, and maybe only most of the time.
 
 Typical of data collection/logging,
 not business processing.
@@ -125,10 +125,25 @@ Demo
 
 Relational, document, and OO implementations of a Two-Tiered Kanban demo.
 
-Quick demo of Two-Tiered Kanban project.
+- Quick demo of Two-Tiered Kanban project.
 
-Flask/SQLAlchemy relational (partial) implementation
+- Flask/SQLAlchemy relational (partial) implementation
 
-Flask/SQLAlchemy/JSONB (partial) implementation
+- Flask/SQLAlchemy/JSONB (partial) implementation
 
-Bobo/Newt/OO implementation
+- Bobo/Newt/OO implementation
+
+Newt DB
+=======
+
+- ZODB + RelStorage + Postscript
+
+  Object-oriented database with data stored in Postgres.
+
+- Mirrors object (pickle) data to JSON
+
+  - JSON is less expressive than pickle, so lossy
+
+  - Class information and object references are retained.
+
+- Search API
