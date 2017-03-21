@@ -47,30 +47,6 @@ object-oriented and document-oriented implementation.  It uses `bobo
 <http://www.newtdb.org>`_ to provide the hybrid object-oriented
 document-oriented database on top of Postgres.
 
-Following along in the database with PyCharm
-============================================
-
-You'll be able to connect to the demonstration database using PyCharm.
-
-This screen shot shows the user interface for `adding a data source
-<https://www.jetbrains.com/help/pycharm/2016.3/working-with-the-database-tool-window.html#create_data_source>`_ for this demo:
-
-.. image:: add-data-source.png
-
-You'll use ``pycharm.ch7ekuuhvcex.us-east-1.rds.amazonaws.com`` for the host.
-The password is ``charmingnewt``.
-
-We'll be working with 3 databases:
-
-rtasks
-   for the relational implementation
-
-jtasks
-   for the JSONB (and relational) implementation and
-
-otasks
-   For the hybrid object-oriented and document oriented implementation
-
 Links
 =====
 
