@@ -1,1 +1,5 @@
 Break add_user route json return.
+
+Close pycharm windows and open rtasks
+
+But make sure the kanban is running

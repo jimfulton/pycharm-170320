@@ -111,7 +111,7 @@ class Task(Base, jsonb.Object, Identified):
     __tablename__ = 'task'
 
     def __init__(self, board, state_id, title, order,
-                 description='', assigned=None, size=1, blocked='',
+                 description='', assigned_id=None, size=1, blocked='',
                  parent_id=None):
         jsonb.Object.__init__(self)
         self.set_id(object_session(board))
@@ -120,7 +120,7 @@ class Task(Base, jsonb.Object, Identified):
         self.title = title
         self.order = order
         self.description = description
-        self.assigned = assigned
+        self.assigned_id = assigned_id
         self.size = size
         self.blocked = blocked
         self.created = datetime.datetime.utcnow().isoformat()

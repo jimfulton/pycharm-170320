@@ -12,6 +12,7 @@ PyCharm Webinar
 
 March 20, 2017
 
+Follow along at: j1m.me/170320
 
 
 Why use a document database
@@ -49,7 +50,7 @@ Isolation
 Durable
   Changes made to the database persist reliably
 
-Transactions/ACID shouldn't be traded away lightly
+ACID shouldn't be traded away lightly
 =======================================================
 
 A quote from the O'Reilly Mongo DB book:
@@ -139,6 +140,10 @@ Relational, document, and OO implementations of a Two-Tiered Kanban demo.
 - Flask/SQLAlchemy/JSONB (partial) implementation
 
 - Bobo/Newt/OO implementation
+
+- JSONB search and indexing
+
+Follow along at: j1m.me/170320
 
 Newt DB
 =======

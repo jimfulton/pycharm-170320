@@ -265,21 +265,21 @@
       from newt
       where state @> '{"parent": {"id": [43]}}';
 
-    Let's add a search API::
+  Let's add a search API::
 
-      @bobo.get("/search", content_type='application/json')
-      def search(self, text=None, parent_id=None):
-          where = "class_name='zc.twotieredkanban.model.Task'"
-          params = ()
-          if text is not None:
-              where += "and task_text(state) @@ to_tsquery(%s)"
-              params += (text, )
-          if parent_id is not None:
-              where += """and state @> '{"parent": {"id": [%s]}}'"""
-              params += parent_id
+    @bobo.get("/search", content_type='application/json')
+    def search(self, text=None, parent_id=None):
+        where = "class_name='zc.twotieredkanban.model.Task'"
+        params = ()
+        if text is not None:
+            where += "and task_text(state) @@ to_tsquery(%s)"
+            params += (text, )
+        if parent_id is not None:
+            where += """and state @> '{"parent": {"id": [%s]}}'"""
+            params += parent_id
 
-          tasks = self.connection.where(where, params)
-          return dict(tasks=[task.json_reduce() for task in tasks])
+        tasks = self.connection.where(where, params)
+        return dict(tasks=[task.json_reduce() for task in tasks])
 
     Try it out.
 
