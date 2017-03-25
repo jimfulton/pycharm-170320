@@ -148,7 +148,7 @@ Follow along at: j1m.me/170320
 Newt DB
 =======
 
-- ZODB + RelStorage + Postscript
+- ZODB + RelStorage + PostgreSQL
 
   Object-oriented database with data stored in Postgres.
 
